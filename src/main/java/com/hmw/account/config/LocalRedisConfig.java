@@ -10,7 +10,7 @@ import redis.embedded.util.OS;
 
 @Configuration
 public class LocalRedisConfig {
-    @Value("${Spring.redis.port}")
+    @Value("${spring.redis.port}")
     private int redisPort;
 
     private RedisServer redisServer;
@@ -25,10 +25,12 @@ public class LocalRedisConfig {
                             .override(OS.MAC_OS_X, "/opt/homebrew/opt/redis/bin/redis-server"))
                     .build();
             redisServer.start();
+            System.out.println("Redis started on port " + redisPort);
         } catch (Exception e) {
             System.err.println("Error starting Redis server: " + e.getMessage());
         }
     }
+
 
     @PreDestroy
     public void stopRedis() {
